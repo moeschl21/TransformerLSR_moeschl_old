@@ -45,8 +45,9 @@ def MSE_likelihood(visit_inten,Lam,surv_inten,Zeta,batch):
     surv_se_out = surv_se.cpu().numpy()
     return visit_se_out,surv_se_out
 
+# JM Fix DeprecationWarning np.trapz to np.trapezoid
 def get_integrated(x, times):
-    return np.trapz(x,times) / (max(times)-min(times))
+    return np.trapezoid(x,times) / (max(times)-min(times))
 
 
 def main(args=None):
