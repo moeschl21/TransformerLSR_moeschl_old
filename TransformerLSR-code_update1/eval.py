@@ -19,7 +19,9 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 pd.options.mode.chained_assignment = None
 
-
+# JM Ignore future warnings for better debugging
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 # computes the sum of square errors for event likelihood
 def MSE_likelihood(visit_inten,Lam,surv_inten,Zeta,batch):
