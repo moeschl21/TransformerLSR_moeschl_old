@@ -213,8 +213,17 @@ class TransformerLSR(nn.Module):
             # aggregate for the combined nan mask, false for nan
             nan_mask.append(~_nan_mask)
             # replace the nan values by 0 (not used anyway)
-            _input_i = input_long_clone[:,:,long_i_ind]
-            _input_i[_nan_mask] = 0.0
+
+            # JM Start
+            ##### ERROR in original code here: In-place allocation is not permitted the backwards function
+            ##### can not calculate the derivative then
+            # _input_i = input_long_clone[:,:,long_i_ind]
+            # _input_i[_nan_mask] = 0.0
+            ##### Solution: "Same operation" with visibility for the backwards step
+            _input_i_raw = input_long_clone[:,:,long_i_ind]
+            _input_i = torch.where(_nan_mask, torch.zeros_like(_input_i_raw), _input_i_raw)
+            # JM End
+            
             long_i_embedding = self.long_embeddings[long_i_ind](_input_i.reshape(batch_size,length,1))
             long_i_embedding = torch.cat([long_i_embedding,base_embedding,temp_embedding],dim=-1)
             embed_list.append(long_i_embedding)
