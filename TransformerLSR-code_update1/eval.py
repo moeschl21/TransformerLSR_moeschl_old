@@ -276,7 +276,7 @@ def main(args=None):
         for i in range(d_long):
             y_hat_i = y_hat[:,:,i].reshape(-1)[combined_mask[:,:,i].reshape(-1) > 0]
             y_target_i = y_target[:,:,i].reshape(-1)[combined_mask[:,:,i].reshape(-1) > 0]
-            temp_result["Y"+str(i+1)+"err"] += np.sum((y_hat_i-y_target_i)**2)
+            temp_result["Y"+str(i+1)+"err"] += np.sum((y_hat_i-y_target_i)**2) # JM Sum of SE long. Variable
             temp_result["Y"+str(i+1)+"tokens"] += combined_mask[:,:,i].sum().item()
 
         # now visit event comparison with the ground truth:
