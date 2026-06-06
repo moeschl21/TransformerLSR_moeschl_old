@@ -163,7 +163,7 @@ def main(args=None):
     vali_data = data[data["id"].isin(vali_id)]
     test_data = data[data["id"].isin(test_id)]
 
-    ## Scale data using Min-Max Scaler
+    ## Scale data using Min-Max Scaler // JM Scaled alle long. Variablen Richtung -1 und 1 
     minmax_scaler = MinMaxScaler(feature_range=(-1,1))
 
     train_data.loc[:,Y_str_list] = minmax_scaler.fit_transform(train_data.loc[:,Y_str_list])
